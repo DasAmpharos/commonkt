@@ -1,0 +1,12 @@
+language: java
+jdk:
+  - openjdk8
+
+dist: xenial
+addons:
+  apt:
+    packages:
+      - openjfx
+
+script:
+  - ./gradlew clean build bintrayPublishAll

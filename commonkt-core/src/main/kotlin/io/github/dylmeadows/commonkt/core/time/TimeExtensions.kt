@@ -6,7 +6,7 @@ import java.time.Duration
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 
-val INDEFINITE = Duration.between(Instant.MIN, Instant.MAX)!!
+val INDEFINITE: Duration = Duration.between(Instant.MAX, Instant.MIN)
 inline val Duration.isIndefinite: Boolean get() = this == INDEFINITE
 
 inline val Long.days: Duration get() = Duration.ofDays(this)

@@ -27,15 +27,7 @@ fun ObjectProperty<Int>.bindBidirectional(property: IntegerProperty) {
     BidirectionalBinding.bindNumber(this, property)
 }
 
-fun IntegerProperty.bindBidirectional(property: ObjectProperty<Int>) {
-    BidirectionalBinding.bindNumber(this, property)
-}
-
 fun ObjectProperty<Long>.bindBidirectional(property: LongProperty) {
-    BidirectionalBinding.bindNumber(this, property)
-}
-
-fun LongProperty.bindBidirectional(property: ObjectProperty<Long>) {
     BidirectionalBinding.bindNumber(this, property)
 }
 
@@ -43,11 +35,19 @@ fun ObjectProperty<Float>.bindBidirectional(property: FloatProperty) {
     BidirectionalBinding.bindNumber(this, property)
 }
 
-fun FloatProperty.bindBidirectional(property: ObjectProperty<Float>) {
+fun ObjectProperty<Double>.bindBidirectional(property: DoubleProperty) {
     BidirectionalBinding.bindNumber(this, property)
 }
 
-fun ObjectProperty<Double>.bindBidirectional(property: DoubleProperty) {
+fun IntegerProperty.bindBidirectional(property: ObjectProperty<Int>) {
+    BidirectionalBinding.bindNumber(this, property)
+}
+
+fun LongProperty.bindBidirectional(property: ObjectProperty<Long>) {
+    BidirectionalBinding.bindNumber(this, property)
+}
+
+fun FloatProperty.bindBidirectional(property: ObjectProperty<Float>) {
     BidirectionalBinding.bindNumber(this, property)
 }
 
