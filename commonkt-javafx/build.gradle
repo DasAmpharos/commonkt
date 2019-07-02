@@ -1,0 +1,5 @@
+description = "commonkt-javafx"
+
+dependencies {
+    api(project(":commonkt-core"))
+}
