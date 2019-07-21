@@ -2,7 +2,7 @@
 
 package io.github.dylmeadows.commonkt.core.util
 
-class Stack<T>(list: List<T>) {
+class ListStack<T>(list: List<T>) {
     private val list: MutableList<T> = list.toMutableList()
 
     val size get() = list.size
@@ -17,6 +17,6 @@ class Stack<T>(list: List<T>) {
     fun pop(): T? = if (!isEmpty) list.removeAt(0) else null
 }
 
-fun <T> List<T>.asStack(): Stack<T> {
-    return Stack(this)
+fun <T> List<T>.asListStack(): ListStack<T> {
+    return ListStack(this)
 }

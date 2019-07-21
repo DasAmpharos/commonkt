@@ -1,8 +1,0 @@
-description = "commonkt-core"
-
-pitest {
-    targetClasses = ['io.github.dylmeadows.common.core.*']
-    threads = 4
-    outputFormats = ['XML', 'HTML']
-    mutationThreshold = 100
-}

@@ -1,4 +1,4 @@
-package io.github.dylmeadows.eontimer.util.javafx.spinner
+package io.github.dylmeadows.commonkt.javafx.node.spinner
 
 import io.github.dylmeadows.commonkt.javafx.beans.property.getValue
 import io.github.dylmeadows.commonkt.javafx.beans.property.setValue

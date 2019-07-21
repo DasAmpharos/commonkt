@@ -1,7 +1,6 @@
 package io.github.dylmeadows.commonkt.javafx.node.spinner
 
 import javafx.scene.control.Spinner
-import java.util.*
 
 val <T> Spinner<T>.valueProperty get() = valueFactory?.valueProperty()
 
@@ -16,11 +15,3 @@ var <T> Spinner<T>.text: String
     set(value) {
         editor.text = value
     }
-
-fun <T> Spinner<T>.commitValue() {
-    Optional.ofNullable(valueFactory)
-        .map { it.converter }
-        .ifPresent { converter ->
-            setValue(converter.fromString(text))
-        }
-}

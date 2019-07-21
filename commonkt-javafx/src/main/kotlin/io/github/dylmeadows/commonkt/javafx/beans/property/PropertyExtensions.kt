@@ -1,6 +1,5 @@
 package io.github.dylmeadows.commonkt.javafx.beans.property
 
-import com.sun.javafx.binding.BidirectionalBinding
 import javafx.beans.property.*
 import javafx.beans.value.*
 import kotlin.reflect.KProperty
@@ -24,33 +23,33 @@ operator fun ObservableBooleanValue.getValue(thisRef: Any, property: KProperty<*
 operator fun BooleanProperty.setValue(thisRef: Any, property: KProperty<*>, value: Boolean) = set(value)
 
 fun ObjectProperty<Int>.bindBidirectional(property: IntegerProperty) {
-    BidirectionalBinding.bindNumber(this, property)
+    bindBidirectional(property.asObject())
 }
 
 fun ObjectProperty<Long>.bindBidirectional(property: LongProperty) {
-    BidirectionalBinding.bindNumber(this, property)
+    bindBidirectional(property.asObject())
 }
 
 fun ObjectProperty<Float>.bindBidirectional(property: FloatProperty) {
-    BidirectionalBinding.bindNumber(this, property)
+    bindBidirectional(property.asObject())
 }
 
 fun ObjectProperty<Double>.bindBidirectional(property: DoubleProperty) {
-    BidirectionalBinding.bindNumber(this, property)
+    bindBidirectional(property.asObject())
 }
 
 fun IntegerProperty.bindBidirectional(property: ObjectProperty<Int>) {
-    BidirectionalBinding.bindNumber(this, property)
+    asObject().bindBidirectional(property)
 }
 
 fun LongProperty.bindBidirectional(property: ObjectProperty<Long>) {
-    BidirectionalBinding.bindNumber(this, property)
+    asObject().bindBidirectional(property)
 }
 
 fun FloatProperty.bindBidirectional(property: ObjectProperty<Float>) {
-    BidirectionalBinding.bindNumber(this, property)
+    asObject().bindBidirectional(property)
 }
 
 fun DoubleProperty.bindBidirectional(property: ObjectProperty<Double>) {
-    BidirectionalBinding.bindNumber(this, property)
+    asObject().bindBidirectional(property)
 }

@@ -1,4 +1,0 @@
-include "commonkt-core"
-include "commonkt-javafx"
-
-rootProject.name = "commonkt"
