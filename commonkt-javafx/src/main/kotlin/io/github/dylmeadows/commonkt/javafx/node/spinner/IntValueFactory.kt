@@ -6,14 +6,13 @@ import javafx.beans.property.IntegerProperty
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.scene.control.SpinnerValueFactory
 import javafx.util.converter.IntegerStringConverter
-import java.util.*
 
 class IntValueFactory(
     min: Int = Int.MIN_VALUE,
     max: Int = Int.MAX_VALUE,
     initialValue: Int = 0,
-    step: Int = 1) : SpinnerValueFactory<Int>() {
-
+    step: Int = 1
+) : SpinnerValueFactory<Int>() {
     val stepProperty: IntegerProperty = SimpleIntegerProperty(step)
     var step by stepProperty
 
@@ -38,7 +37,6 @@ class IntValueFactory(
                 this@IntValueFactory.max = this@IntValueFactory.min
                 return
             }
-
             if (this@IntValueFactory.value > newMax) {
                 this@IntValueFactory.value = newMax
             }
@@ -51,43 +49,48 @@ class IntValueFactory(
         valueProperty().addListener { _, _, newValue ->
             // when the value is set, we need to react to ensure it is a
             // valid value (and if not, blow up appropriately)
-            Optional.ofNullable(newValue)
-                .ifPresent {
-                    this@IntValueFactory.value = when {
-                        newValue < this@IntValueFactory.min -> this@IntValueFactory.min
-                        newValue > this@IntValueFactory.max -> this@IntValueFactory.max
-                        else -> newValue
-                    }
+            if (newValue != null) {
+                this@IntValueFactory.value = when {
+                    newValue < this@IntValueFactory.min -> this@IntValueFactory.min
+                    newValue > this@IntValueFactory.max -> this@IntValueFactory.max
+                    else -> newValue
                 }
+            }
         }
         value = if (initialValue in min..max) initialValue else min
     }
 
-    override fun increment(steps: Int) {
-        Optional.ofNullable(value)
-            .map { it + (steps * step) }
-            .ifPresent { newValue ->
-                value = when {
-                    newValue <= max -> newValue
-                    isWrapAround -> wrapValue(newValue, min, max) - 1
-                    else -> max
-                }
+    override fun increment(
+        steps: Int
+    ) {
+        if (value != null) {
+            val newValue = value + (steps * step)
+            value = when {
+                newValue <= max -> newValue
+                isWrapAround -> wrapValue(newValue, min, max) - 1
+                else -> max
             }
+        }
     }
 
-    override fun decrement(steps: Int) {
-        Optional.ofNullable(value)
-            .map { it - (steps * step) }
-            .ifPresent { newValue ->
-                value = when {
-                    newValue >= min -> newValue
-                    isWrapAround -> wrapValue(newValue, min, max) + 1
-                    else -> min
-                }
+    override fun decrement(
+        steps: Int
+    ) {
+        if (value != null) {
+            val newValue = value - (steps * step)
+            value = when {
+                newValue >= min -> newValue
+                isWrapAround -> wrapValue(newValue, min, max) + 1
+                else -> min
             }
+        }
     }
 
-    private fun wrapValue(value: Int, min: Int, max: Int): Int {
+    private fun wrapValue(
+        value: Int,
+        min: Int,
+        max: Int
+    ): Int {
         if (max == 0) {
             throw RuntimeException()
         }

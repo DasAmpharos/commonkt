@@ -1,31 +1,20 @@
 package io.github.dylmeadows.commonkt.core.lang
 
-fun String.isInteger(): Boolean {
-    return isNumber(this, String::toInt)
+fun String.isInt(radix: Int = 10): Boolean = isNumber(String::toInt, radix)
+
+fun String.isDouble(): Boolean = isNumber(String::toDouble)
+
+private fun <T : Number> String.isNumber(
+    converter: (String) -> T
+): Boolean {
+    return kotlin.runCatching { converter(this) }
+        .isSuccess
 }
 
-fun String.isInteger(radix: Int): Boolean {
-    return isNumber(this, radix, String::toInt)
-}
-
-fun String.isDouble(): Boolean {
-    return isNumber(this, String::toDouble)
-}
-
-private fun <T : Number> isNumber(s: String, converter: (String) -> T): Boolean {
-    return try {
-        converter(s)
-        true
-    } catch (e: NumberFormatException) {
-        false
-    }
-}
-
-private fun <T : Number> isNumber(s: String, radix: Int, converter: (String, Int) -> T): Boolean {
-    return try {
-        converter(s, radix)
-        true
-    } catch (e: NumberFormatException) {
-        false
-    }
+private fun <T : Number> String.isNumber(
+    converter: (String, Int) -> T,
+    radix: Int
+): Boolean {
+    return kotlin.runCatching { converter(this, radix) }
+        .isSuccess
 }

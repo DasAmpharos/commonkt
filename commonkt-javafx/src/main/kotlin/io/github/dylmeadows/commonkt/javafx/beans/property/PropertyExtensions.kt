@@ -22,34 +22,50 @@ operator fun DoubleProperty.setValue(thisRef: Any, property: KProperty<*>, value
 operator fun ObservableBooleanValue.getValue(thisRef: Any, property: KProperty<*>) = get()
 operator fun BooleanProperty.setValue(thisRef: Any, property: KProperty<*>, value: Boolean) = set(value)
 
-fun ObjectProperty<Int>.bindBidirectional(property: IntegerProperty) {
+fun ObjectProperty<Int>.bindBidirectional(
+    property: IntegerProperty
+) {
     bindBidirectional(property.asObject())
 }
 
-fun ObjectProperty<Long>.bindBidirectional(property: LongProperty) {
+fun ObjectProperty<Long>.bindBidirectional(
+    property: LongProperty
+) {
     bindBidirectional(property.asObject())
 }
 
-fun ObjectProperty<Float>.bindBidirectional(property: FloatProperty) {
+fun ObjectProperty<Float>.bindBidirectional(
+    property: FloatProperty
+) {
     bindBidirectional(property.asObject())
 }
 
-fun ObjectProperty<Double>.bindBidirectional(property: DoubleProperty) {
+fun ObjectProperty<Double>.bindBidirectional(
+    property: DoubleProperty
+) {
     bindBidirectional(property.asObject())
 }
 
-fun IntegerProperty.bindBidirectional(property: ObjectProperty<Int>) {
+fun IntegerProperty.bindBidirectional(
+    property: ObjectProperty<Int>
+) {
     asObject().bindBidirectional(property)
 }
 
-fun LongProperty.bindBidirectional(property: ObjectProperty<Long>) {
+fun LongProperty.bindBidirectional(
+    property: ObjectProperty<Long>
+) {
     asObject().bindBidirectional(property)
 }
 
-fun FloatProperty.bindBidirectional(property: ObjectProperty<Float>) {
+fun FloatProperty.bindBidirectional(
+    property: ObjectProperty<Float>
+) {
     asObject().bindBidirectional(property)
 }
 
-fun DoubleProperty.bindBidirectional(property: ObjectProperty<Double>) {
+fun DoubleProperty.bindBidirectional(
+    property: ObjectProperty<Double>
+) {
     asObject().bindBidirectional(property)
 }

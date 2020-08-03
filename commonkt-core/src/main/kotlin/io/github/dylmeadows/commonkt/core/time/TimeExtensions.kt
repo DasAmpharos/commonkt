@@ -2,9 +2,9 @@
 
 package io.github.dylmeadows.commonkt.core.time
 
+import io.github.dylmeadows.commonkt.core.util.sumByLong
 import java.time.Duration
 import java.time.Instant
-import java.time.temporal.ChronoUnit
 
 val INDEFINITE: Duration = Duration.between(Instant.MAX, Instant.MIN)
 inline val Duration.isIndefinite: Boolean get() = this == INDEFINITE
@@ -18,7 +18,7 @@ inline val Long.nanoseconds: Duration get() = Duration.ofNanos(this)
 
 fun List<Duration>.sum(): Duration {
     return if (!contains(INDEFINITE)) {
-        Duration.ofMillis(map(Duration::toMillis).sum())
+        Duration.ofMillis(sumByLong(Duration::toMillis))
     } else {
         INDEFINITE
     }

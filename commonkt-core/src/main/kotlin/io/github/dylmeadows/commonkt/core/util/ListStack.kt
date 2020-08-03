@@ -2,7 +2,9 @@
 
 package io.github.dylmeadows.commonkt.core.util
 
-class ListStack<T>(list: List<T>) {
+class ListStack<T>(
+    list: List<T>
+) {
     private val list: MutableList<T> = list.toMutableList()
 
     val size get() = list.size

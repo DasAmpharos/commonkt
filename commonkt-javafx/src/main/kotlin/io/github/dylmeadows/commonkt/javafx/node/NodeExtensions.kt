@@ -6,11 +6,13 @@ import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.scene.Node
 
-fun Node.showWhen(condition: BooleanExpression): FxSubscription {
-    return hideWhen(condition.not())
-}
+fun Node.showWhen(
+    condition: BooleanExpression
+): FxSubscription = hideWhen(condition.not())
 
-fun Node.hideWhen(condition: BooleanExpression): FxSubscription {
+fun Node.hideWhen(
+    condition: BooleanExpression
+): FxSubscription {
     visibleProperty().bind(condition.not())
     managedProperty().bind(visibleProperty())
     return object : FxSubscription, ChangeListener<Boolean> {
@@ -18,7 +20,11 @@ fun Node.hideWhen(condition: BooleanExpression): FxSubscription {
             condition.addListener(this)
         }
 
-        override fun changed(observable: ObservableValue<out Boolean>?, oldValue: Boolean?, newValue: Boolean?) {
+        override fun changed(
+            observable: ObservableValue<out Boolean>?,
+            oldValue: Boolean?,
+            newValue: Boolean?
+        ) {
             autosize()
         }
 
@@ -28,20 +34,28 @@ fun Node.hideWhen(condition: BooleanExpression): FxSubscription {
     }
 }
 
-fun Node.setOnFocusLost(onFocusLost: () -> Unit): FxSubscription {
+fun Node.setOnFocusLost(
+    onFocusLost: () -> Unit
+): FxSubscription {
     return object : FxSubscription, ChangeListener<Boolean> {
+        private val property by lazy(::focusedProperty)
+
         init {
-            focusedProperty().addListener(this)
+            property.addListener(this)
         }
 
-        override fun changed(observable: ObservableValue<out Boolean>?, oldValue: Boolean?, newValue: Boolean?) {
+        override fun changed(
+            observable: ObservableValue<out Boolean>?,
+            oldValue: Boolean?,
+            newValue: Boolean?
+        ) {
             if (newValue != null && !newValue) {
                 onFocusLost()
             }
         }
 
         override fun cancel() {
-            focusedProperty().removeListener(this)
+            property.removeListener(this)
         }
     }
 }
