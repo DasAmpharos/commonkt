@@ -3,18 +3,17 @@ package io.github.dylmeadows.commonkt.core.io
 import java.io.InputStream
 import java.net.URL
 
-class Resource(
+interface Resource {
     val path: String
-) {
+
     val url: URL
         get() = loader.getResource(path)
             ?: error("Unable to find resource for $path")
     val inputStream: InputStream
         get() = loader.getResourceAsStream(path)
             ?: error("Unable to find resource for $path")
-    val contents: String by lazy {
-        String(inputStream.readBytes())
-    }
+    val contents: String
+        get() = String(inputStream.readAllBytes())
 
     private companion object {
         val loader: ClassLoader by lazy {
