@@ -1,12 +1,13 @@
-plugins {
-    id "org.openjfx.javafxplugin" version "0.0.7"
-}
+apply plugin: "org.openjfx.javafxplugin"
 
 description = "commonkt-javafx"
 
+javafx {
+    version = "15.0.1"
+    configuration = "compileOnly"
+    modules = ["javafx.controls"]
+}
+
 dependencies {
-    compileOnly("org.openjfx:javafx-base:11.0.2:mac")
-    compileOnly("org.openjfx:javafx-graphics:11.0.2:mac")
-    compileOnly("org.openjfx:javafx-controls:11.0.2:mac")
     api(project(":commonkt-core"))
 }

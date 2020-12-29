@@ -1,0 +1,40 @@
+apply from: "$rootDir/gradle/snapshot.gradle"
+
+if (isSnapshot) {
+    version += "-SNAPSHOT"
+}
+
+task javadocJar(type: Jar) {
+    dependsOn(javadoc)
+    from javadoc.destinationDir
+    archiveClassifier = "javadoc"
+}
+
+task sourceJar(type: Jar, dependsOn: compileKotlin) {
+    group = "build"
+    classifier = "sources"
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourceJar
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourceJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username "${System.getenv("ARTIFACTORY_USER")}"
+                password "${System.getenv("ARTIFACTORY_TOKEN")}"
+            }
+            url isSnapshot ? ossSnapshotLocal : ossReleaseLocal
+        }
+    }
+}
